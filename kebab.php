@@ -42,7 +42,13 @@ require_once "code.php";
                                 } ?>fa-star me-1"></i>
                 <?php } ?>
             </div>
-            <a href="createKebab.php?id=<?= $kebab['id'] ?>&edit" class="btn btn-warning m-2 w-25">Modifier le kebab</a>
+            <div class="d-flex">
+                <a href="createKebab.php?id=<?= $kebab['id'] ?>&edit" class="btn btn-warning me-2 mt-2">Modifier le kebab</a>
+                <form action="delete.php" method="post">
+                    <button type="submit" name="delete" value="<?= $kebab['id'] ?>" class="btn btn-danger me-2 mt-2">Supprimer le kebab</button>
+                </form>
+            </div>
+
         </div>
 
     </div>

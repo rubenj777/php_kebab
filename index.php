@@ -29,11 +29,11 @@ foreach ($kebabs as $kebab) {
     </div>
   </nav>
 
-  <div class="container mt-5">
+  <div class="container m-auto mt-5 row d-flex justify-content-between">
 
     <?php foreach ($kebabs as $kebab) { ?>
 
-      <div class="mb-2 p-2 card">
+      <div class="m-2 p-2 card w-25">
         <h3>Kebab <?= $kebab['garniture'] ?></h3>
         <p>Viande : <?= $viandes[$kebab['viande'] - 1] ?></p>
         <p>Sauce : <?= $sauces[$kebab['sauce'] - 1] ?></p>
@@ -53,7 +53,7 @@ foreach ($kebabs as $kebab) {
 
 
 
-        <a href="kebab.php?id=<?= $kebab['id'] ?>" class="btn btn-info m-2 w-25">Voir le kebab</a>
+        <a href="kebab.php?id=<?= $kebab['id'] ?>" class="btn btn-info mt-2 w-50">Voir le kebab</a>
 
 
 
