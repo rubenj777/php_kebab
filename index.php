@@ -12,13 +12,15 @@ require_once "code.php";
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://bootswatch.com/5/sandstone/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
   <title>Ruben Kebab</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/rubenkebab">Ruben Kebab</a>
+      <a class="navbar-brand" href="/rubenkebab"><i class="fas fa-utensils me-3" style="font-size:25px"></i>Ruben Kebab</a>
       <div class="collapse navbar-collapse" id="navbarColor01">
 
       </div>
@@ -27,16 +29,51 @@ require_once "code.php";
 
   <div class="container mt-5">
 
-    <?php foreach ($kebabs as $kebab) { ?>
+    <?php foreach ($kebabs as $kebab) {
+
+      if ($kebab['viande'] == 1) {
+        $kebab['viande'] = "agneau";
+      } elseif ($kebab['viande'] == 2) {
+        $kebab['viande'] = "veau";
+      } else {
+        $kebab['viande'] = "dinde";
+      }
+
+      if ($kebab['sauce'] == 1) {
+        $kebab['sauce'] = "blanche";
+      } elseif ($kebab['sauce'] == 2) {
+        $kebab['sauce'] = "harissa";
+      } else {
+        $kebab['sauce'] = "mayonnaise";
+      }
+
+
+      $a = 5 - $kebab['difficulte'];
+      $j = 1;
+
+    ?>
 
       <div class="mb-2 p-2 card">
         <h3>Kebab <?= $kebab['garniture'] ?></h3>
-        <p><?= $kebab['viande'] ?></p>
-        <p><?= $kebab['sauce'] ?></p>
-        <p>Difficulté : <?= $kebab['difficulte'] ?></p>
-        <form action='' method='get'>
-          <button name='see' value='' type='submit' class='btn btn-info me-2'><strong>Voir le kebab</strong></button>
-        </form>
+        <p>Viande : <?= $kebab['viande'] ?></p>
+        <p>Sauce : <?= $kebab['sauce'] ?></p>
+
+        <div class="d-flex align-items-center">
+          <p class="mb-0 me-1">Difficulté :</p>
+          <?php for ($i = 1; $i <= $kebab['difficulte']; $i++) { ?>
+            <i class="fas fa-star me-1"></i>
+            <?php if ($i == $kebab['difficulte']) {
+              for ($j = 1; $j <= $a; $j++) { ?>
+                <i class="far fa-star me-1"></i>
+              <?php } ?>
+            <?php } ?>
+          <?php } ?>
+        </div>
+
+
+
+
+        <a href="kebab.php?id=<?= $kebab['id'] ?>" class="btn btn-info w-25">Voir le kebab</a>
       </div>
 
     <?php } ?>
