@@ -1,6 +1,10 @@
 <?php
 
 require_once "code.php";
+foreach ($kebabs as $kebab) {
+  $a = 5 - $kebab['difficulte'];
+  $j = 1;
+}
 
 ?>
 
@@ -21,59 +25,38 @@ require_once "code.php";
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
       <a class="navbar-brand" href="/rubenkebab"><i class="fas fa-utensils me-3" style="font-size:25px"></i>Ruben Kebab</a>
-      <div class="collapse navbar-collapse" id="navbarColor01">
-
-      </div>
+      <a class="btn btn-primary" href="createKebab.php">Constitue ton kebab</a>
     </div>
   </nav>
 
   <div class="container mt-5">
 
-    <?php foreach ($kebabs as $kebab) {
-
-      if ($kebab['viande'] == 1) {
-        $kebab['viande'] = "agneau";
-      } elseif ($kebab['viande'] == 2) {
-        $kebab['viande'] = "veau";
-      } else {
-        $kebab['viande'] = "dinde";
-      }
-
-      if ($kebab['sauce'] == 1) {
-        $kebab['sauce'] = "blanche";
-      } elseif ($kebab['sauce'] == 2) {
-        $kebab['sauce'] = "harissa";
-      } else {
-        $kebab['sauce'] = "mayonnaise";
-      }
-
-
-      $a = 5 - $kebab['difficulte'];
-      $j = 1;
-
-    ?>
+    <?php foreach ($kebabs as $kebab) { ?>
 
       <div class="mb-2 p-2 card">
         <h3>Kebab <?= $kebab['garniture'] ?></h3>
-        <p>Viande : <?= $kebab['viande'] ?></p>
-        <p>Sauce : <?= $kebab['sauce'] ?></p>
+        <p>Viande : <?= $viandes[$kebab['viande'] - 1] ?></p>
+        <p>Sauce : <?= $sauces[$kebab['sauce'] - 1] ?></p>
 
         <div class="d-flex align-items-center">
           <p class="mb-0 me-1">Difficulté :</p>
-          <?php for ($i = 1; $i <= $kebab['difficulte']; $i++) { ?>
-            <i class="fas fa-star me-1"></i>
-            <?php if ($i == $kebab['difficulte']) {
-              for ($j = 1; $j <= $a; $j++) { ?>
-                <i class="far fa-star me-1"></i>
-              <?php } ?>
-            <?php } ?>
+
+          <?php for ($i = 0; $i < 5; $i++) { ?>
+            <i class="<?php if ($kebab['difficulte'] > $i) {
+                        echo "fas ";
+                      } else {
+                        echo "far ";
+                      } ?>fa-star me-1"></i>
           <?php } ?>
         </div>
 
 
 
 
-        <a href="kebab.php?id=<?= $kebab['id'] ?>" class="btn btn-info w-25">Voir le kebab</a>
+        <a href="kebab.php?id=<?= $kebab['id'] ?>" class="btn btn-info m-2 w-25">Voir le kebab</a>
+
+
+
       </div>
 
     <?php } ?>
