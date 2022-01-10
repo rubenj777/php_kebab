@@ -16,25 +16,27 @@ if (!empty($_POST['viande']) && ctype_digit($_POST['viande']) && !empty($_POST['
     $difficulte = (int)$_POST['difficulte'];
     $garniture = mysqli_real_escape_string($myConnect, htmlspecialchars($_POST['garniture']));
 
-    if ($editMode) {
-        $sql = "UPDATE kebabs SET garniture = '$garniture', viande = '$viande', sauce = '$sauce', difficulte = '$difficulte' WHERE id = '$id'";
-    } else {
-        $sql = "INSERT INTO kebabs (garniture, viande, sauce, difficulte) VALUES ('$garniture', '$viande', '$sauce', '$difficulte')";
-    }
+    // $sql = "INSERT INTO kebabs (garniture, viande, sauce, difficulte) VALUES ('$garniture', '$viande', '$sauce', '$difficulte')";
+    // $result = mysqli_query($myConnect, $sql);
+    // $id = $myConnect->insert_id;
+    // header("Location: kebab.php?id=$id");
 
-    $result = mysqli_query($myConnect, $sql);
-    if ($editMode) {
-        $id = $kebab['id'];
-    } else {
-        $id = $myConnect->insert_id;
-    }
+    $query = $pdo->prepare("INSERT INTO kebabs(viande, garniture, sauce, difficulte) VALUES (:viande, :garniture, :sauce, :difficulte)");
+    $query->execute([
+        'viande' => $viande,
+        'garniture' => $garniture,
+        'sauce' => $sauce,
+        'difficulte' => $difficulte,
+    ]);
 
-    header("Location: kebab.php?id=$id");
+
+
+
+
+
+
+    header("Location: index.php");
 }
-
-
-
-
 
 ?>
 
@@ -61,7 +63,9 @@ if (!empty($_POST['viande']) && ctype_digit($_POST['viande']) && !empty($_POST['
 
     <div class="container mt-5">
 
-        <form method="post" class="d-flex flex-column w-25">
+        <form action="<?php if ($editMode) {
+                            echo "edit.php";
+                        } ?>" method="post" class="d-flex flex-column w-25">
 
             <textarea placeholder="Ta garniture" name="garniture" id="" cols="30" rows="5"><?php if ($editMode) {
                                                                                                 echo $kebab['garniture'];
@@ -99,6 +103,10 @@ if (!empty($_POST['viande']) && ctype_digit($_POST['viande']) && !empty($_POST['
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+
+            <?php if ($editMode) { ?>
+                <input type="hidden" name="id" value="<?= $kebab['id'] ?>">
+            <?php } ?>
 
             <button type='submit' class='btn btn-success'>Enregistrer</button>
 

@@ -8,10 +8,13 @@ $sauces = ["Blanche", "Harissa", "Moutarde"];
 
 if (!empty($_GET['id']) && ctype_digit($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM kebabs WHERE id = '$id'";
-    $result = mysqli_query($myConnect, $sql);
-    $kebab = $result->fetch_assoc();
+    $query = $pdo->prepare("SELECT * FROM kebabs WHERE id = :kebab_id");
+    $query->execute([
+        'kebab_id' => $id
+    ]);
+    $kebab = $query->fetch();
 } else {
-    $sql = "SELECT * FROM kebabs";
-    $kebabs = mysqli_query($myConnect, $sql);
+    $result = $pdo->query('SELECT * FROM kebabs');
+
+    $kebabs = $result->fetchAll();
 }
