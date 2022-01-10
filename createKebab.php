@@ -61,12 +61,12 @@ if (!empty($_POST['viande']) && ctype_digit($_POST['viande']) && !empty($_POST['
 
     <div class="container mt-5">
 
-        <form method="post">
+        <form method="post" class="d-flex flex-column w-25">
 
             <textarea placeholder="Ta garniture" name="garniture" id="" cols="30" rows="5"><?php if ($editMode) {
                                                                                                 echo $kebab['garniture'];
                                                                                             } ?></textarea>
-            <select name="viande">
+            <select name="viande" class="m-2">
                 <?php if ($editMode) { ?>
                     <option value="<?= $kebab['viande'] ?>"><?= $viandes[$kebab['viande'] - 1] ?></option>
                 <? } else { ?>
@@ -77,7 +77,7 @@ if (!empty($_POST['viande']) && ctype_digit($_POST['viande']) && !empty($_POST['
                 <option value="2">Veau</option>
                 <option value="3">Dinde</option>
             </select>
-            <select name="sauce">
+            <select name="sauce" class="m-2">
                 <?php if ($editMode) { ?>
                     <option value="<?= $kebab['sauce'] ?>"><?= $sauces[$kebab['sauce'] - 1] ?></option>
                 <? } else { ?>
@@ -87,7 +87,7 @@ if (!empty($_POST['viande']) && ctype_digit($_POST['viande']) && !empty($_POST['
                 <option value="2">Harissa</option>
                 <option value="3">Mayonnaise</option>
             </select>
-            <select name="difficulte">
+            <select name="difficulte" class="m-2">
                 <?php if ($editMode) { ?>
                     <option value="<?= $kebab['difficulte'] ?>"><?= $kebab['difficulte'] ?></option>
                 <? } else { ?>
